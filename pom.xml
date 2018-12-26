@@ -103,10 +103,10 @@
         <resources>
             <!-- 资源文件配置 -->
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>src/main/resources/conf/${profileActive}</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>application-${profileActive}.properties</include>
+                    <include>application.properties</include>
                 </includes>
             </resource>
             <resource>

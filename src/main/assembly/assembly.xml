@@ -47,24 +47,33 @@
         </fileSet>
 
         <!-- 包含根目录下的文件 -->
-        <fileSet>
+<!--        <fileSet>
             <directory>${basedir}</directory>
             <includes>
                 <include>NOTICE</include>
                 <include>LICENSE</include>
                 <include>*.md</include>
             </includes>
+        </fileSet>-->
+
+        <!-- 指定输出target/classes中的配置文件到config目录中 -->
+        <fileSet>
+            <directory>${basedir}/target/classes</directory>
+            <outputDirectory>config</outputDirectory>
+            <fileMode>0644</fileMode>
+            <includes>
+                <include>application.properties</include>
+            </includes>
         </fileSet>
     </fileSets>
 
-    <!-- 指定输出target/classes中的配置文件到config目录中 -->
-    <files>
-        <file>
-            <fileMode>0644</fileMode>
-            <source>${basedir}/target/classes/application-${profileActive}.properties</source>
-            <outputDirectory>config</outputDirectory>
-            <destName>application.properties</destName>
-        </file>
-    </files>
+    <!--<files>-->
+        <!--<file>-->
+            <!--<fileMode>0644</fileMode>-->
+            <!--<source>${basedir}/target/classes/application.properties</source>-->
+            <!--<outputDirectory>config</outputDirectory>-->
+            <!--<destName>application.properties</destName>-->
+        <!--</file>-->
+    <!--</files>-->
 
 </assembly>
