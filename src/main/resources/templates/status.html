@@ -32,11 +32,11 @@
             <tr>
               <td>${row.name}</td>
               <td>
-                #if (row.status.level == com.alibaba.dubbo.common.status.Status.Level::OK)
+                #if (row.status.level == org.apache.dubbo.common.status.Status.Level::OK)
                 <span class="badge bg-green">${row.status.level}</span>
-                #elseif (row.status.level == com.alibaba.dubbo.common.status.Status.Level::WARN)
+                #elseif (row.status.level == org.apache.dubbo.common.status.Status.Level::WARN)
                 <span class="badge bg-yellow">${row.status.level}</span>
-                #elseif (row.status.level == com.alibaba.dubbo.common.status.Status.Level::ERROR)
+                #elseif (row.status.level == org.apache.dubbo.common.status.Status.Level::ERROR)
                 <span class="badge bg-red">${row.status.level}</span>
                 #els
                 <span class="badge bg-gray">${row.status.level}</span>

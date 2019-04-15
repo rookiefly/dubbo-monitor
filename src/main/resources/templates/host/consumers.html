@@ -45,7 +45,7 @@
             <tbody>
             #for (row : rows)
             <tr>
-              <td class="text-center"><a class="btn btn-xs btn-danger" href="unsubscribe?host=${host}&consumer=${com.alibaba.dubbo.common.URL::encode(row)}"><i class="fa fa-unlock"></i></a></td>
+              <td class="text-center"><a class="btn btn-xs btn-danger" href="unsubscribe?host=${host}&consumer=${org.apache.dubbo.common.URL::encode(row)}"><i class="fa fa-unlock"></i></a></td>
               <td>${row}</td>
             </tr>
             #end

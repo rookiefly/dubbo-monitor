@@ -1,10 +1,10 @@
 package com.rookiefly.open.dubbo.monitor.controller;
 
-import com.alibaba.dubbo.common.Constants;
-import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.common.utils.NetUtils;
-import com.rookiefly.open.dubbo.monitor.service.RegistryContainer;
 import com.rookiefly.open.dubbo.monitor.domain.DubboHost;
+import com.rookiefly.open.dubbo.monitor.service.RegistryContainer;
+import org.apache.dubbo.common.Constants;
+import org.apache.dubbo.common.URL;
+import org.apache.dubbo.common.utils.NetUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +43,7 @@ public class HostsController {
                     URL url = (providers != null && providers.size() > 0) ? providers.iterator().next() : consumers.iterator().next();
                     dubboHost.setApplication(url.getParameter(Constants.APPLICATION_KEY, ""));
                     dubboHost.setOwner(url.getParameter("owner", ""));
-                    dubboHost.setOrganization((url.hasParameter("organization") ?  url.getParameter("organization") : ""));
+                    dubboHost.setOrganization((url.hasParameter("organization") ? url.getParameter("organization") : ""));
                 }
 
                 int providerSize = providers == null ? 0 : providers.size();

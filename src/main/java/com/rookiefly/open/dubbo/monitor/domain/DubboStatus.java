@@ -1,7 +1,7 @@
 package com.rookiefly.open.dubbo.monitor.domain;
 
-import com.alibaba.dubbo.common.status.Status;
 import lombok.Data;
+import org.apache.dubbo.common.status.Status;
 
 import java.io.Serializable;
 

@@ -1,12 +1,12 @@
 package com.rookiefly.open.dubbo.monitor.service;
 
-import com.alibaba.dubbo.common.Constants;
-import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
-import com.alibaba.dubbo.common.utils.NetUtils;
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.alibaba.dubbo.registry.NotifyListener;
-import com.alibaba.dubbo.registry.RegistryService;
+import org.apache.dubbo.common.Constants;
+import org.apache.dubbo.common.URL;
+import org.apache.dubbo.common.utils.ConcurrentHashSet;
+import org.apache.dubbo.common.utils.NetUtils;
+import org.apache.dubbo.config.annotation.Reference;
+import org.apache.dubbo.registry.NotifyListener;
+import org.apache.dubbo.registry.RegistryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -49,7 +49,7 @@ public class RegistryContainer {
     public Set<String> getApplications() {
         return Collections.unmodifiableSet(applications);
     }
-    
+
     public Set<String> getDependencies(String application, boolean reverse) {
         if (reverse) {
             Set<String> dependencies = new HashSet<String>();
@@ -174,13 +174,13 @@ public class RegistryContainer {
     @PostConstruct
     public void start() {
         URL subscribeUrl = new URL(Constants.ADMIN_PROTOCOL, NetUtils.getLocalHost(), 0, "",
-                                    Constants.INTERFACE_KEY, Constants.ANY_VALUE,
-                                    Constants.GROUP_KEY, Constants.ANY_VALUE,
-                                    Constants.VERSION_KEY, Constants.ANY_VALUE,
-                                    Constants.CLASSIFIER_KEY, Constants.ANY_VALUE,
-                                    Constants.CATEGORY_KEY, Constants.PROVIDERS_CATEGORY + ","
-                                            + Constants.CONSUMERS_CATEGORY,
-                                    Constants.CHECK_KEY, String.valueOf(false));
+                Constants.INTERFACE_KEY, Constants.ANY_VALUE,
+                Constants.GROUP_KEY, Constants.ANY_VALUE,
+                Constants.VERSION_KEY, Constants.ANY_VALUE,
+                Constants.CLASSIFIER_KEY, Constants.ANY_VALUE,
+                Constants.CATEGORY_KEY, Constants.PROVIDERS_CATEGORY + ","
+                + Constants.CONSUMERS_CATEGORY,
+                Constants.CHECK_KEY, String.valueOf(false));
         registry.subscribe(subscribeUrl, new NotifyListener() {
             public void notify(List<URL> urls) {
                 if (urls == null || urls.size() == 0) {
@@ -213,7 +213,7 @@ public class RegistryContainer {
                                     serviceApplications = providerServiceApplications.get(service);
                                 }
                                 serviceApplications.add(application);
-        
+
                                 Set<String> applicationServices = providerApplicationServices.get(application);
                                 if (applicationServices == null) {
                                     providerApplicationServices.put(application, new ConcurrentHashSet<String>());
@@ -239,7 +239,7 @@ public class RegistryContainer {
                                     serviceApplications = consumerServiceApplications.get(service);
                                 }
                                 serviceApplications.add(application);
-        
+
                                 Set<String> applicationServices = consumerApplicationServices.get(application);
                                 if (applicationServices == null) {
                                     consumerApplicationServices.put(application, new ConcurrentHashSet<String>());
@@ -247,7 +247,7 @@ public class RegistryContainer {
                                 }
                                 applicationServices.add(service);
                             }
-                            
+
                         }
                     }
                 }

@@ -1,6 +1,6 @@
 package com.rookiefly.open.dubbo.monitor.controller;
 
-import com.alibaba.dubbo.common.utils.NetUtils;
+import org.apache.dubbo.common.utils.NetUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

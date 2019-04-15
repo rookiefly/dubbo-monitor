@@ -1,6 +1,6 @@
 package com.rookiefly.open.dubbo.monitor.controller;
 
-import com.alibaba.dubbo.common.URL;
+import org.apache.dubbo.common.URL;
 import com.rookiefly.open.dubbo.monitor.service.RegistryContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
