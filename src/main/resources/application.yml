@@ -50,12 +50,6 @@ spring:
     allow-bean-definition-overriding: true
   application:
     name: dubbo-monitor-plus
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
-        trace: false
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     initialization-mode: always

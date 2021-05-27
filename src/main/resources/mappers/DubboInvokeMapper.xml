@@ -6,6 +6,7 @@
 
     <sql id="allOfDubboInvoke">
         id,
+        invoke_id as invokeId
         invoke_date as invokeDate,
         service,
         method,
@@ -20,9 +21,10 @@
         max_elapsed as maxElapsed,
         max_concurrent as maxConcurrent
     </sql>
-    
+
     <sql id="allNoAsOfDubboInvoke">
         id,
+        invoke_id,
         invoke_date,
         service,
         method,
@@ -42,10 +44,11 @@
     <insert id="addDubboInvoke" parameterType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke">
         insert into
         dubbo_invoke (
-        <include refid="allNoAsOfDubboInvoke" />
+        <include refid="allNoAsOfDubboInvoke"/>
         )
         values(
         #{id},
+        #{invokeId},
         #{invokeDate},
         #{service},
         #{method},
@@ -62,7 +65,8 @@
         )
     </insert>
 
-    <select id="countDubboInvoke" parameterType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke" resultType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke">
+    <select id="countDubboInvoke" parameterType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke"
+            resultType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke">
         SELECT
         ANY_VALUE(dubbo_invoke.method),
         ANY_VALUE(dubbo_invoke.type),
@@ -100,16 +104,17 @@
         GROUP BY dubbo_invoke.invoke_time DIV #{timeParticle}
     </select>
 
-    <select id="countDubboInvokeInfo" parameterType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke" resultType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke">
+    <select id="countDubboInvokeInfo" parameterType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke"
+            resultType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke">
         SELECT
-            SUM(dubbo_invoke.success) as success,
-            SUM(dubbo_invoke.failure) as failure,
-            SUM(dubbo_invoke.elapsed) as elapsed,
-            MAX(dubbo_invoke.max_elapsed) as maxElapsed,
-            MIN(dubbo_invoke.max_concurrent) as maxConcurrent
+        SUM(dubbo_invoke.success) as success,
+        SUM(dubbo_invoke.failure) as failure,
+        SUM(dubbo_invoke.elapsed) as elapsed,
+        MAX(dubbo_invoke.max_elapsed) as maxElapsed,
+        MIN(dubbo_invoke.max_concurrent) as maxConcurrent
         FROM dubbo_invoke
         WHERE
-            1 = 1
+        1 = 1
         <if test="invokeDate != null">
             AND dubbo_invoke.invoke_date = DATE_FORMAT(#{invokeDate},'%Y-%m-%d')
         </if>
@@ -136,9 +141,10 @@
         </if>
     </select>
 
-    <select id="getMethodsByService" parameterType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke" resultType="string">
+    <select id="getMethodsByService" parameterType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke"
+            resultType="string">
         SELECT
-         DISTINCT(method)
+        DISTINCT(method)
         FROM dubbo_invoke
         WHERE
         1 = 1
@@ -162,7 +168,8 @@
         </if>
     </select>
 
-    <select id="countDubboInvokeSuccessTopTen" parameterType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke" resultType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke">
+    <select id="countDubboInvokeSuccessTopTen" parameterType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke"
+            resultType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke">
         SELECT
         dubbo_invoke.service,
         dubbo_invoke.method,
@@ -195,10 +202,11 @@
             AND dubbo_invoke.type = #{type}
         </if>
         GROUP BY dubbo_invoke.service, dubbo_invoke.method
-        ORDER BY SUM(dubbo_invoke.success)  DESC LIMIT 20
+        ORDER BY SUM(dubbo_invoke.success) DESC LIMIT 20
     </select>
 
-    <select id="countDubboInvokeFailureTopTen" parameterType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke" resultType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke">
+    <select id="countDubboInvokeFailureTopTen" parameterType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke"
+            resultType="com.rookiefly.open.dubbo.monitor.domain.DubboInvoke">
         SELECT
         dubbo_invoke.service,
         dubbo_invoke.method,
@@ -231,6 +239,6 @@
             AND dubbo_invoke.type = #{type}
         </if>
         GROUP BY dubbo_invoke.service, dubbo_invoke.method
-        ORDER BY SUM(dubbo_invoke.failure)  DESC LIMIT 20
+        ORDER BY SUM(dubbo_invoke.failure) DESC LIMIT 20
     </select>
 </mapper>

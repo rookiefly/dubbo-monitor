@@ -10,11 +10,12 @@ import com.alibaba.dubbo.monitor.MonitorService;
 import com.google.common.collect.Maps;
 import com.rookiefly.open.dubbo.monitor.domain.DubboInvoke;
 import com.rookiefly.open.dubbo.monitor.mapper.DubboInvokeMapper;
+import com.rookiefly.open.dubbo.monitor.support.ObjectId;
 import com.rookiefly.open.dubbo.monitor.support.UuidUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 @Service(delay = -1)
 public class DubboMonitorService implements MonitorService {
 
-    @Autowired
+    @Resource
     private DubboInvokeMapper dubboInvokeMapper;
 
     private static final Logger logger = LoggerFactory.getLogger(DubboMonitorService.class);
@@ -84,7 +85,7 @@ public class DubboMonitorService implements MonitorService {
         }
         DubboInvoke dubboInvoke = new DubboInvoke();
 
-        dubboInvoke.setId(UuidUtil.createUUID());
+        dubboInvoke.setInvokeId(ObjectId.get().toString());
         try {
             if (statistics.hasParameter(PROVIDER)) {
                 dubboInvoke.setType(CONSUMER);
@@ -125,7 +126,7 @@ public class DubboMonitorService implements MonitorService {
     }
 
     public void collect(URL statistics) {
-         queue.offer(statistics);
+        queue.offer(statistics);
         if (logger.isInfoEnabled()) {
             logger.info("collect statistics: " + statistics);
         }
@@ -133,7 +134,6 @@ public class DubboMonitorService implements MonitorService {
     }
 
     public List<URL> lookup(URL query) {
-        // TODO Auto-generated method stub
         return null;
     }
 

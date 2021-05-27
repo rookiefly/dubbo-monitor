@@ -8,7 +8,9 @@ import java.util.Date;
 @Data
 public class DubboInvoke implements Serializable {
 
-    private String id;
+    private Long id;
+
+    private String invokeId;
 
     private Date invokeDate;
 
@@ -20,7 +22,7 @@ public class DubboInvoke implements Serializable {
 
     private String provider;
 
-    private String type="provider";
+    private String type = "provider";
 
     private double success;
 
