@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS `dubbo_invoke`;
+
 CREATE TABLE `dubbo_invoke` (
   `id` varchar(255) NOT NULL DEFAULT '',
   `invoke_date` date NOT NULL,
@@ -14,7 +15,9 @@ CREATE TABLE `dubbo_invoke` (
   `concurrent` int(11) DEFAULT NULL,
   `max_elapsed` int(11) DEFAULT NULL,
   `max_concurrent` int(11) DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`),
-  KEY `index_service` (`service`) USING BTREE,
-  KEY `index_method` (`method`) USING BTREE
+  KEY `index_service` (`service`),
+  KEY `index_method` (`method`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;

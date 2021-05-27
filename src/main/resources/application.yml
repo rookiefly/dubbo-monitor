@@ -1,0 +1,80 @@
+dubbo:
+  application:
+    name: ${spring.application.name}
+    owner: rookiefly
+  protocol:
+    port: 20880
+    name: dubbo
+  registry:
+    address: zookeeper://127.0.0.1:2181
+  scan:
+    basePackages: com.rookiefly.open.dubbo.monitor.service
+logging:
+  level:
+    root: info
+management:
+  endpoint:
+    dubbo:
+      enabled: true
+    dubboConfigs:
+      enabled: true
+    dubboProperties:
+      enabled: true
+    dubboReferences:
+      enabled: true
+    dubboServices:
+      enabled: true
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+mybatis:
+  configuration:
+    default-fetch-size: 100
+    default-statement-timeout: 30
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:/mappers/*Mapper.xml
+  type-aliases-package: com.rookiefly.open.dubbo.monitor.domain
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: dubbo-monitor-plus
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+        trace: false
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialization-mode: always
+    druid:
+      maxActive: 500
+      password: 123456
+      url: jdbc:mysql://127.0.0.1:3306/test?prepStmtCacheSize=517&cachePrepStmts=true&autoReconnect=true&characterEncoding=utf-8
+      username: root
+      validation-query: select 1
+      async-init: true
+  jetbrick:
+    template:
+      charset: UTF-8
+      config:
+        jetx:
+          autoscan:
+            packages: com.rookiefly.open.dubbo.monitor.support
+          import:
+            methods: com.rookiefly.open.dubbo.monitor.support.StringMethods
+      enabled: true
+      prefix: templates/
+      suffix: .html
