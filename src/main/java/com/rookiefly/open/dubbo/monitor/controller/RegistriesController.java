@@ -23,9 +23,9 @@ public class RegistriesController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String registries(Model model) {
-        List<DubboRegistry> rows = new ArrayList<DubboRegistry>();
+        List<DubboRegistry> rows = new ArrayList<>();
         Collection<Registry> registries = AbstractRegistryFactory.getRegistries();
-        if (registries.size() > 0) {
+        if (!registries.isEmpty()) {
             DubboRegistry dubboRegistry;
             for (Registry registry : registries) {
                 dubboRegistry = new DubboRegistry();
@@ -47,7 +47,7 @@ public class RegistriesController {
     public String registered(@RequestParam String registry, Model model) {
         Collection<Registry> registries = AbstractRegistryFactory.getRegistries();
         Registry reg = null;
-        if (registries.size() > 0) {
+        if (!registries.isEmpty()) {
             for (Registry r : registries) {
                 String sp = r.getUrl().getAddress();
                 if (((registry == null || registry.length() == 0) && reg == null) || sp.equals(registry)) {
@@ -56,11 +56,11 @@ public class RegistriesController {
             }
         }
 
-        List<String> rows = new ArrayList<String>();
+        List<String> rows = new ArrayList<>();
 
         if (reg instanceof AbstractRegistry) {
             Set<URL> services = ((AbstractRegistry) reg).getRegistered();
-            if (services != null && services.size() > 0) {
+            if (!services.isEmpty()) {
                 for (URL u : services) {
                     rows.add(u.toFullString());
                 }
@@ -76,7 +76,7 @@ public class RegistriesController {
     public String subscribed(@RequestParam String registry, Model model) {
         Collection<Registry> registries = AbstractRegistryFactory.getRegistries();
         Registry reg = null;
-        if (registries.size() > 0) {
+        if (!registries.isEmpty()) {
             for (Registry r : registries) {
                 String sp = r.getUrl().getAddress();
                 if (((registry == null || registry.length() == 0) && reg == null) || sp.equals(registry)) {
@@ -85,11 +85,11 @@ public class RegistriesController {
             }
         }
 
-        List<String> rows = new ArrayList<String>();
+        List<String> rows = new ArrayList<>();
 
         if (reg instanceof AbstractRegistry) {
             Set<URL> services = ((AbstractRegistry) reg).getSubscribed().keySet();
-            if (services.size() > 0) {
+            if (!services.isEmpty()) {
                 for (URL u : services) {
                     rows.add(u.toFullString());
                 }

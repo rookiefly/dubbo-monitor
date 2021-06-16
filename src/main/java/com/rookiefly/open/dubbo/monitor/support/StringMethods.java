@@ -12,9 +12,4 @@ public class StringMethods {
         }
         return s;
     }
-
-    public static void main(String[] args) {
-        String replace = StringMethods.replaceMethod("dispatchRegisterCouponsAndSendSms(String,String,String,String)", "\\(|\\)|,", "_");
-        System.out.println(replace);
-    }
 }

@@ -7,7 +7,7 @@ spring:
       connectionTimeout: 30000
       idleTimeout: 30000
       maxLifetime: 2000000
-      maximumPoolSize: 30
+      maximumPoolSize: 5
     type: com.zaxxer.hikari.HikariDataSource
     initialization-mode: ALWAYS
     driver-class-name: com.mysql.cj.jdbc.Driver

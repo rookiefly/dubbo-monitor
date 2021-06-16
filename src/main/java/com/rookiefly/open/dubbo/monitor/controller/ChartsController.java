@@ -1,11 +1,10 @@
 package com.rookiefly.open.dubbo.monitor.controller;
 
-import com.rookiefly.open.dubbo.monitor.service.DubboMonitorService;
 import com.rookiefly.open.dubbo.monitor.domain.DubboInvoke;
 import com.rookiefly.open.dubbo.monitor.domain.DubboInvokeLineChart;
 import com.rookiefly.open.dubbo.monitor.domain.LineChartSeries;
+import com.rookiefly.open.dubbo.monitor.service.DubboMonitorService;
 import com.rookiefly.open.dubbo.monitor.support.CommonResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/services/charts")
 public class ChartsController {
 
-    @Autowired
+    @Resource
     private DubboMonitorService dubboMonitorService;
 
     @RequestMapping(method = RequestMethod.GET)
@@ -37,7 +37,7 @@ public class ChartsController {
     public CommonResponse loadChartsData(@ModelAttribute DubboInvoke dubboInvoke) {
         // 计算统计平均请求次数的时间粒度
         long timeParticle = dubboInvoke.getTimeParticle() / 1000;
-        List<DubboInvokeLineChart> dubboInvokeLineChartList = new ArrayList<DubboInvokeLineChart>();
+        List<DubboInvokeLineChart> dubboInvokeLineChartList = new ArrayList<>();
         DubboInvokeLineChart qpsLineChart;
         DubboInvokeLineChart artLineChart;
         List<LineChartSeries> qpsLineChartSeriesList;
@@ -50,8 +50,8 @@ public class ChartsController {
         for (String method : methods) {
             qpsLineChart = new DubboInvokeLineChart();
             artLineChart = new DubboInvokeLineChart();
-            qpsLineChartSeriesList = new ArrayList<LineChartSeries>();
-            artLineChartSeriesList = new ArrayList<LineChartSeries>();
+            qpsLineChartSeriesList = new ArrayList<>();
+            artLineChartSeriesList = new ArrayList<>();
             dubboInvoke.setMethod(method);
             // 组织Provider折线数据
             qpsLineChartSeries = new LineChartSeries();
@@ -60,12 +60,12 @@ public class ChartsController {
             List<DubboInvoke> providerDubboInvokeDetails = dubboMonitorService.countDubboInvoke(dubboInvoke);
             qpsLineChartSeries.setName(dubboInvoke.getType());
             artLineChartSeries.setName(dubboInvoke.getType());
-            qpsSeriesDatas = new ArrayList<double[]>();
-            artSeriesDatas = new ArrayList<double[]>();
+            qpsSeriesDatas = new ArrayList<>();
+            artSeriesDatas = new ArrayList<>();
             double[] qpsProviderSeriesData;
             double[] artProviderSeriesData;
             for (DubboInvoke dubboInvokeDetail : providerDubboInvokeDetails) {
-                qpsProviderSeriesData = new double[]{dubboInvokeDetail.getInvokeTime(), Double.valueOf(String.format("%.4f", dubboInvokeDetail.getSuccess()/ timeParticle))};
+                qpsProviderSeriesData = new double[]{dubboInvokeDetail.getInvokeTime(), Double.valueOf(String.format("%.4f", dubboInvokeDetail.getSuccess() / timeParticle))};
                 qpsSeriesDatas.add(qpsProviderSeriesData);
                 artProviderSeriesData = new double[]{dubboInvokeDetail.getInvokeTime(), Double.valueOf(String.format("%.4f", dubboInvokeDetail.getElapsed()))};
                 artSeriesDatas.add(artProviderSeriesData);
@@ -81,12 +81,12 @@ public class ChartsController {
             List<DubboInvoke> consumerDubboInvokeDetails = dubboMonitorService.countDubboInvoke(dubboInvoke);
             qpsLineChartSeries.setName(dubboInvoke.getType());
             artLineChartSeries.setName(dubboInvoke.getType());
-            qpsSeriesDatas = new ArrayList<double[]>();
-            artSeriesDatas = new ArrayList<double[]>();
+            qpsSeriesDatas = new ArrayList<>();
+            artSeriesDatas = new ArrayList<>();
             double[] qpsConsumerSeriesData;
             double[] artConsumerSeriesData;
             for (DubboInvoke dubboInvokeDetail : consumerDubboInvokeDetails) {
-                qpsConsumerSeriesData = new double[]{dubboInvokeDetail.getInvokeTime(), Double.valueOf(String.format("%.4f", dubboInvokeDetail.getSuccess()/ timeParticle))};
+                qpsConsumerSeriesData = new double[]{dubboInvokeDetail.getInvokeTime(), Double.valueOf(String.format("%.4f", dubboInvokeDetail.getSuccess() / timeParticle))};
                 qpsSeriesDatas.add(qpsConsumerSeriesData);
                 artConsumerSeriesData = new double[]{dubboInvokeDetail.getInvokeTime(), Double.valueOf(String.format("%.4f", dubboInvokeDetail.getElapsed()))};
                 artSeriesDatas.add(artConsumerSeriesData);

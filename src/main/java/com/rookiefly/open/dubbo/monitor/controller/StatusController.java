@@ -19,13 +19,13 @@ public class StatusController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String status(Model model) {
-        List<DubboStatus> rows = new ArrayList<DubboStatus>();
+        List<DubboStatus> rows = new ArrayList<>();
         Set<String> names = ExtensionLoader.getExtensionLoader(StatusChecker.class).getSupportedExtensions();
         DubboStatus dubboStatus;
         for (String name : names) {
             StatusChecker checker = ExtensionLoader.getExtensionLoader(StatusChecker.class).getExtension(name);
             Status status = checker.check();
-            if (status != null && ! Status.Level.UNKNOWN.equals(status.getLevel())) {
+            if (status != null && !Status.Level.UNKNOWN.equals(status.getLevel())) {
                 dubboStatus = new DubboStatus();
                 dubboStatus.setName(name);
                 dubboStatus.setStatus(status);

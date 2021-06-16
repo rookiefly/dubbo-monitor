@@ -3,12 +3,12 @@ package com.rookiefly.open.dubbo.monitor.controller;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.registry.NotifyListener;
 import com.rookiefly.open.dubbo.monitor.service.RegistryContainer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,7 @@ import java.util.Map;
 @RequestMapping("/unsubscribe")
 public class UnsubscribeController {
 
-    @Autowired
+    @Resource
     private RegistryContainer registryContainer;
 
     @RequestMapping(method = RequestMethod.GET)
@@ -49,6 +49,7 @@ public class UnsubscribeController {
         }
 
         public void notify(List<URL> urls) {
+            //nothing
         }
 
     }

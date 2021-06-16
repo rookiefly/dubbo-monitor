@@ -21,9 +21,9 @@ public class ServersController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String servers(Model model) {
-        List<DubboServer> rows = new ArrayList<DubboServer>();
+        List<DubboServer> rows = new ArrayList<>();
         Collection<ExchangeServer> servers = DubboProtocol.getDubboProtocol().getServers();
-        if (servers != null && servers.size() > 0) {
+        if (!servers.isEmpty()) {
             DubboServer dubboServer;
             for (ExchangeServer server : servers) {
                 dubboServer = new DubboServer();
@@ -45,7 +45,7 @@ public class ServersController {
 
         ExchangeServer server = null;
         String serverAddress = "";
-        if (servers != null && servers.size() > 0) {
+        if (!servers.isEmpty()) {
             for (ExchangeServer s : servers) {
                 int sp = s.getUrl().getPort();
                 if (port == 0 && server == null || port == sp) {
@@ -55,7 +55,7 @@ public class ServersController {
             }
         }
 
-        List<String> rows = new ArrayList<String>();
+        List<String> rows = new ArrayList<>();
 
         if (server != null) {
             Collection<ExchangeChannel> channels = server.getExchangeChannels();

@@ -92,7 +92,7 @@ public class RegistryContainer {
     }
 
     public List<URL> getProvidersByHost(String host) {
-        List<URL> urls = new ArrayList<URL>();
+        List<URL> urls = new ArrayList<>();
         if (host != null && host.length() > 0) {
             for (List<URL> providers : serviceProviders.values()) {
                 for (URL url : providers) {
@@ -144,7 +144,7 @@ public class RegistryContainer {
     }
 
     public List<URL> getConsumersByHost(String host) {
-        List<URL> urls = new ArrayList<URL>();
+        List<URL> urls = new ArrayList<>();
         if (host != null && host.length() > 0) {
             for (List<URL> consumers : serviceConsumers.values()) {
                 for (URL url : consumers) {

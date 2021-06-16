@@ -11,7 +11,6 @@ import com.google.common.collect.Maps;
 import com.rookiefly.open.dubbo.monitor.domain.DubboInvoke;
 import com.rookiefly.open.dubbo.monitor.mapper.DubboInvokeMapper;
 import com.rookiefly.open.dubbo.monitor.support.ObjectId;
-import com.rookiefly.open.dubbo.monitor.support.UuidUtil;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -175,8 +174,8 @@ public class DubboMonitorService implements MonitorService {
      * @param dubboInvoke
      * @return
      */
-    public Map<String, List> countDubboInvokeTopTen(DubboInvoke dubboInvoke) {
-        Map<String, List> result = Maps.newHashMap();
+    public Map<String, List<DubboInvoke>> countDubboInvokeTopTen(DubboInvoke dubboInvoke) {
+        Map<String, List<DubboInvoke>> result = Maps.newHashMap();
         result.put("success", dubboInvokeMapper.countDubboInvokeSuccessTopTen(dubboInvoke));
         result.put("failure", dubboInvokeMapper.countDubboInvokeFailureTopTen(dubboInvoke));
         return result;

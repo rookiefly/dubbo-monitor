@@ -1,14 +1,14 @@
 package com.rookiefly.open.dubbo.monitor.controller;
 
-import com.rookiefly.open.dubbo.monitor.service.DubboMonitorService;
 import com.rookiefly.open.dubbo.monitor.domain.DubboInvoke;
 import com.rookiefly.open.dubbo.monitor.domain.DubboStatistics;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.rookiefly.open.dubbo.monitor.service.DubboMonitorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/services/statistics")
 public class StatisticsController {
 
-    @Autowired
+    @Resource
     private DubboMonitorService dubboMonitorService;
 
     @RequestMapping()
@@ -24,7 +24,7 @@ public class StatisticsController {
         //获取Service方法
         List<String> methods = dubboMonitorService.getMethodsByService(dubboInvoke);
         List<DubboInvoke> dubboInvokes;
-        List<DubboStatistics> dubboStatisticses = new ArrayList<DubboStatistics>();
+        List<DubboStatistics> dubboStatisticses = new ArrayList<>();
         DubboStatistics dubboStatistics;
         for (String method : methods) {
             dubboStatistics = new DubboStatistics();

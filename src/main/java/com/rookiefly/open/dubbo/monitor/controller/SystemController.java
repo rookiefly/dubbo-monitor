@@ -21,18 +21,18 @@ public class SystemController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String system(Model model) {
-        List<String[]> rows = new ArrayList<String[]>();
+        List<String[]> rows = new ArrayList<>();
 
         rows.add(new String[]{"Version", "2.8.4"});
 
         String address = NetUtils.getLocalHost();
-        rows.add(new String[]{"Host", NetUtils.getHostName(address)  + "/" + address});
+        rows.add(new String[]{"Host", NetUtils.getHostName(address) + "/" + address});
 
         rows.add(new String[]{"OS", System.getProperty("os.name") + " " + System.getProperty("os.version")});
 
         rows.add(new String[]{"JVM", System.getProperty("java.runtime.name") + " " + System.getProperty("java.runtime.version") + ",<br/>" + System.getProperty("java.vm.name") + " " + System.getProperty("java.vm.version") + " " + System.getProperty("java.vm.info", "")});
 
-        rows.add(new String[]{"CPU", System.getProperty("os.arch", "") + ", " + String.valueOf(Runtime.getRuntime().availableProcessors()) + " cores"});
+        rows.add(new String[]{"CPU", System.getProperty("os.arch", "") + ", " + Runtime.getRuntime().availableProcessors() + " cores"});
 
         rows.add(new String[]{"Locale", Locale.getDefault().toString() + "/" + System.getProperty("file.encoding")});
 

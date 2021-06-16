@@ -4,7 +4,6 @@ import java.util.UUID;
 
 /**
  * UUID生成工具类
- *
  */
 public class UuidUtil {
 
@@ -13,8 +12,8 @@ public class UuidUtil {
      *
      * @return
      */
-    public static String createUUID(){
-        return UUID.randomUUID().toString().replaceAll("-","");
+    public static String createUUID() {
+        return UUID.randomUUID().toString().replace("-", "");
     }
 
 }

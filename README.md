@@ -8,3 +8,8 @@
 - `Maven 3.5+`
 - `Alibaba Dubbo 2.6.5+`
 - `Spring Boot 2.x`
+
+## 2、页面预览
+![snapshot1.png][1]
+
+  [1]: snapshot1.png
